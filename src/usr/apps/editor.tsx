@@ -34,7 +34,7 @@ export const EditorApp = () => {
       {/* Footer */}
       <div class="h-6 bg-gray-100 border-t border-gray-300 flex items-center px-4 justify-between text-[10px] text-gray-500 font-sans uppercase font-bold">
         <div>Characters: {content().length}</div>
-        <div>Cyberpunk Typewriter v1.0</div>
+        <div>Advanced Typewriter v1.0</div>
       </div>
     </div>
   );

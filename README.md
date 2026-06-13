@@ -1,4 +1,4 @@
-# 🌌 NA.os — Cyberpunk Browser OS
+# 🌌 NA.os — Advanced Browser OS
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Development-orange?style=for-the-badge&logo=rocket" alt="Status" />
@@ -20,7 +20,7 @@
 - ⚡ **Ultra-Fast**: Powered by SolidJS for reactive, high-performance UI rendering.
 - 🛡️ **Security-First**: Path validation, sandboxing, and Unix-style permission models.
 - 🎹 **Terminal-First**: Built-in TTY for system-level control.
-- 🎨 **Cyber Aesthetics**: Customizable neon themes, scanline effects, and slick animations.
+- 🎨 **Neon Aesthetics**: Customizable neon themes, scanline effects, and slick animations.
 
 ---
 
@@ -142,5 +142,5 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 ---
 
 <p align="center">
-  <i>Built with ❤️ for the future of web-based environments.</i>
+  <i>Built with MIE for the future of web-based environments.</i>
 </p>

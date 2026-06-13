@@ -8,7 +8,7 @@ export default {
         'os-black': '#000000',
         'os-white': '#FFFFFF',
         'os-gray': '#1A1A1A',
-        'os-accent': '#00FF00', // Cyberpunk neon green
+        'os-accent': '#00FF00', // Advanced neon green
         'os-border': '#FFFFFF'
       },
       fontFamily: {

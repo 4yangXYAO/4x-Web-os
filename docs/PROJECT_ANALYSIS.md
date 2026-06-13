@@ -9,7 +9,7 @@
 ## 1. PROJECT UNDERSTANDING
 
 ### **What is WEB.OS?**
-A **cyberpunk-themed, fully functional operating system that runs in the browser**. It's not just a UI kit—it's a complete OS metaphor with:
+A **Advanced-themed, fully functional operating system that runs in the browser**. It's not just a UI kit—it's a complete OS metaphor with:
 - Bootloader & kernel architecture
 - Virtual file system
 - Process manager & memory management
@@ -70,7 +70,7 @@ ALL tests must PASS before shipping:
 | **Database** | SQLite + Drizzle ORM | Persistent storage (settings, VFS) |
 | **Build** | Vite | Fast development & optimized bundles |
 | **Language** | TypeScript | Type safety & stability |
-| **Font** | Monofrik.ttf | Cyberpunk monospace aesthetic |
+| **Font** | Monofrik.ttf | Advanced monospace aesthetic |
 
 ---
 
