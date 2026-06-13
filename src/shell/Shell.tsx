@@ -45,12 +45,12 @@ export const Shell = () => {
         </div>
 
         {/* Status Overlay Layer */}
-        <div class="absolute top-4 right-4 z-50 text-[10px] text-white/30 text-right pointer-events-none font-bold uppercase tracking-widest">
-          NA.os SYSTEM v0.1.0-ALPHA
+        <div class="absolute top-4 right-4 z-50 text-[9px] text-white/30 text-right pointer-events-none font-bold uppercase tracking-widest">
+          NA.os SYSTEM v1.0.0-XYAO
           <br />
           HYBRID KERNEL INSTALLED
           <br />
-          ALL SYSTEMS NOMINAL
+          CREATED BY 4yangXYAO
         </div>
       </div>
 

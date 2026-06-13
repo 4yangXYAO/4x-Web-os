@@ -25,14 +25,28 @@ interface WindowProps {
 }
 
 export const Window = (props: WindowProps) => {
-  const windowStyle = createMemo(() => ({
-    width: `${props.bounds.width}px`,
-    height: `${props.bounds.height}px`,
-    left: `${props.bounds.x}px`,
-    top: `${props.bounds.y}px`,
-    "z-index": props.zIndex,
-    display: props.state === "minimized" ? "none" : "flex",
-  }));
+  const windowStyle = createMemo(() => {
+    if (props.state === "maximized") {
+      return {
+        width: "100%",
+        height: "100%",
+        left: "0px",
+        top: "0px",
+        "z-index": props.zIndex,
+        display: "flex",
+        "border-width": "0px",
+      };
+    }
+
+    return {
+      width: `${props.bounds.width}px`,
+      height: `${props.bounds.height}px`,
+      left: `${props.bounds.x}px`,
+      top: `${props.bounds.y}px`,
+      "z-index": props.zIndex,
+      display: props.state === "minimized" ? "none" : "flex",
+    };
+  });
 
   // Element ref
   let rootEl: HTMLDivElement | undefined;

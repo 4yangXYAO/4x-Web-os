@@ -8,10 +8,7 @@
 import { lazy } from 'solid-js';
 
 export const APP_REGISTRY: Record<string, { title: string; component: any; icon?: string }> = {
-  terminal: {
-    title: 'System Terminal',
-    component: lazy(() => import('../../usr/bin/terminal')),
-  },
+
   files: {
     title: 'File Explorer',
     component: lazy(() => import('../../usr/bin/file-explorer')),

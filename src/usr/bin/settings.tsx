@@ -67,13 +67,13 @@ export const SettingsApp = () => {
           <div class="flex flex-col items-center justify-center h-full text-center max-w-sm mx-auto">
             <div class="w-20 h-20 bg-white mb-6 flex items-center justify-center font-bold text-black text-4xl italic">OS</div>
             <h1 class="text-2xl font-bold uppercase tracking-tighter mb-1">NA.os</h1>
-            <p class="text-[10px] font-bold text-white/40 uppercase mb-8">Version 0.1.0-ALPHA "Foundation"</p>
+            <p class="text-[10px] font-bold text-[#00ff00] uppercase mb-8 tracking-[0.2em]">Version 1.0.0 Stable</p>
             <p class="text-xs leading-relaxed opacity-60">
-              A full-featured, lightweight operating system that runs entirely in your browser. 
-              Built with TypeScript, SolidJS, and a custom hybrid kernel architecture.
+              A high-performance, lightweight operating system that runs entirely in your browser. 
+              Designed and optimized for responsiveness and speed.
             </p>
-            <div class="mt-8 pt-8 border-t border-white/10 w-full text-[10px] text-white/20 uppercase font-bold">
-              &copy; 2026 NEO-HUMAN CORE SYSTEMS
+            <div class="mt-8 pt-8 border-t border-white/10 w-full text-[10px] text-white/50 uppercase font-bold text-center">
+              Created by <span class="text-white">4yangXYAO</span>
             </div>
           </div>
         )}

@@ -1,13 +1,11 @@
 /**
  * NA.os Desktop
  *
- * Main user interaction area.
- * Contains app icons, widgets, and background effects.
+ * Main user interaction area with branding and grid layout.
  */
 
 import { For } from "solid-js";
 import {
-  Terminal,
   FolderOpen,
   Settings,
   FileText,
@@ -24,17 +22,16 @@ interface DesktopIconProps {
 
 const DesktopIcon = (props: DesktopIconProps) => (
   <div
-    class="w-20 flex flex-col items-center gap-1 p-2 group cursor-pointer hover:bg-white/10 transition-colors"
+    class="w-20 sm:w-24 flex flex-col items-center gap-1 p-2 group cursor-pointer hover:bg-white/10 transition-all rounded-sm active:scale-95"
     onClick={() => props.onOpen()}
-    onDblClick={() => props.onOpen()}
   >
-    <div class="w-12 h-12 flex items-center justify-center border border-transparent group-hover:border-white transition-colors">
+    <div class="w-12 h-12 flex items-center justify-center border border-white/5 bg-black group-hover:border-white transition-all shadow-lg">
       <props.icon
-        size={24}
-        class="text-white group-hover:scale-110 transition-transform"
+        size={22}
+        class="text-white group-hover:scale-110 group-hover:text-[#00ff00] transition-all"
       />
     </div>
-    <span class="text-[10px] font-bold text-center uppercase tracking-tighter bg-black px-1">
+    <span class="text-[9px] font-black text-center uppercase tracking-normal bg-black px-1 border border-transparent group-hover:border-white/20">
       {props.label}
     </span>
   </div>
@@ -42,7 +39,6 @@ const DesktopIcon = (props: DesktopIconProps) => (
 
 export const Desktop = () => {
   const icons = [
-    { id: "terminal", label: "Terminal", icon: Terminal },
     { id: "files", label: "Files", icon: FolderOpen },
     { id: "editor", label: "Editor", icon: FileText },
     { id: "draw", label: "Draw", icon: Palette },
@@ -51,7 +47,7 @@ export const Desktop = () => {
   ];
 
   return (
-    <div class="absolute inset-0 p-4 flex flex-col flex-wrap gap-2 content-start select-none">
+    <div class="absolute inset-0 p-6 flex flex-col flex-wrap gap-4 content-start select-none">
       <For each={icons}>
         {(icon) => {
           const handleOpen = () => {
@@ -73,8 +69,14 @@ export const Desktop = () => {
         }}
       </For>
 
-      {/* Retro CRT Effect Overlay */}
-      <div class="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(circle,rgba(255,255,255,1)_1px,transparent_1px)] bg-[length:4px_4px]" />
+      {/* Decorative Branding */}
+      <div class="absolute bottom-12 right-8 flex flex-col items-end pointer-events-none opacity-20 group">
+         <span class="text-[60px] font-black italic leading-none tracking-tighter text-white/10 select-none">NA.OS</span>
+         <span class="text-[10px] font-bold uppercase tracking-[0.5em] text-white/50 -mt-2">By 4yangXYAO</span>
+      </div>
+
+      {/* Grid Pattern Background */}
+      <div class="absolute inset-0 pointer-events-none opacity-[0.05] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
     </div>
   );
 };
