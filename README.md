@@ -1,7 +1,11 @@
-# 🌌 NA.os — Advanced Browser OS
+# 🌌 NA.os — Advanced Browser Operating System
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-Development-orange?style=for-the-badge&logo=rocket" alt="Status" />
+  <img src="https://img.shields.io/badge/Status-Stable-green?style=for-the-badge&logo=rocket" alt="Status" />
+  <img src="https://img.shields.io/badge/Built%20By-4yangXYAO-black?style=for-the-badge" alt="Creator" />
+  <img src="https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge" alt="Version" />
+</p>
+<p align="center">
   <img src="https://img.shields.io/badge/Built%20With-SolidJS-2c4f7c?style=for-the-badge&logo=solid" alt="SolidJS" />
   <img src="https://img.shields.io/badge/Language-TypeScript-007acc?style=for-the-badge&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Styles-Tailwind_CSS-38b2ac?style=for-the-badge&logo=tailwind-css" alt="Tailwind" />
@@ -9,31 +13,19 @@
 
 ---
 
-**NA.os** is a high-performance, lightweight operating system kernel and desktop environment designed to run natively within any modern web browser. It features a genuine **Microkernel Architecture**, a **Virtual File System (VFS)**, and a robust **Process Manager**.
+**NA.os** is a high-performance, lightweight operating system kernel and desktop environment designed to run natively within any modern web browser. Created by **4yangXYAO**, it features a genuine **Microkernel Architecture**, a **Persistent Virtual File System (VFS)**, and a robust **Process Manager**.
 
 ---
 
 ## 🚀 Key Features
 
-- 🧠 **Kernel Architecture**: Real process management, memory tracking, and internal event bus.
-- 📁 **Virtual File System**: Fully functional VFS with path security and persistence.
-- ⚡ **Ultra-Fast**: Powered by SolidJS for reactive, high-performance UI rendering.
-- 🛡️ **Security-First**: Path validation, sandboxing, and Unix-style permission models.
-- 🎹 **Terminal-First**: Built-in TTY for system-level control.
-- 🎨 **Neon Aesthetics**: Customizable neon themes, scanline effects, and slick animations.
-
----
-
-## 📋 Road Map
-
-| Feature | Status | Description |
-| :--- | :--- | :--- |
-| **Microkernel** | ✅ 100% | Core drivers, Process/Memory Manager. |
-| **VFS** | ✅ 100% | IndexedDB backed Virtual File System. |
-| **Event Bus** | ✅ 100% | Pub/Sub system for inter-component comms. |
-| **GUI Shell** | ⏳ 40% | Compositor, Taskbar, and Desktop. |
-| **Core Apps** | ⏳ 20% | Terminal, Settings, and Shell. |
-| **External API** | ⏳ 10% | SDK for 3rd-party application development. |
+- 🧠 **Microkernel Core**: Real-time process management, memory tracking, and internal event bus architecture.
+- 📁 **Persistent VFS**: Fully functional Virtual File System that persists data to browser storage. Files survive refreshes.
+- 🖼️ **GUI Compositor**: Modern window manager with focus handling, minimize, maximize, and taskbar integration.
+- 🎨 **Creative Suite**: Built-in Drawing tool with touch support and PNG export, plus a professional Word Editor.
+- 🎮 **Neo Arcade**: Integrated games engine featuring "Cyber Runner" and "Matrix Snake".
+- ⚡ **Ultra-Fast**: Powered by SolidJS for atomic updates and high-performance UI rendering.
+- 🛡️ **Security**: Path validation, directory traversal protection, and sandboxed application logic.
 
 ---
 
@@ -41,10 +33,10 @@
 
 ```mermaid
 graph TD
-    UserLand[User Applications] --> SDK[OS SDK]
+    UserLand[User Applications] --> SDK[NA.os SDK]
     SDK --> Kernel[Kernel Core]
     subgraph Kernel
-        FS[Virtual File System]
+        FS[Persistent VFS]
         Proc[Process Manager]
         Mem[Memory Manager]
     end
@@ -56,15 +48,15 @@ graph TD
 
 ## 🛠️ Tech Stack
 
-- **Core**: [SolidJS](https://www.solidjs.com/) — The fastest reactive UI library.
-- **Backend**: Node.js + [Fastify](https://www.fastify.io/) + [Socket.io](https://socket.io/) for real-time synchronization.
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [Framer Motion](https://www.framer.com/motion/) for animations.
-- **Persistence**: SQLite (WebSQL/IndexedDB) + [Drizzle ORM](https://orm.drizzle.team/).
-- **Engine**: [Vite](https://vitejs.dev/) — Lightning-fast HMR and build pipelines.
+- **Frontend**: [SolidJS](https://www.solidjs.com/) — The fastest reactive UI library.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) — Optimized utility-first styling.
+- **Icons**: [Lucide](https://lucide.dev/) — High-quality vector icons.
+- **Persistence**: Hybrid `localStorage` Serialization & Object Store.
+- **Engine**: [Vite](https://vitejs.dev/) — Lightning-fast HMR and optimized build pipelines.
 
 ---
 
-## 📦 Setup & Development
+## 📦 Getting Started
 
 ### 1. Installation
 ```bash
@@ -76,71 +68,54 @@ cd 4x-Web-os
 npm install
 ```
 
-### 2. Launch Development Mode
+### 2. Launch Development
 ```bash
-# Start the frontend dev server
+# Start the dev server
 npm run dev
-
-# (Optional) Start the backend services
-npm run server
 ```
-*Frontend will be available at: `http://localhost:5173`*
+*System will be available at: `http://localhost:5173`*
 
-### 3. Running Tests
+### 3. Production Build
 ```bash
-# Run unit and integration tests
-npm test
-
-# Run tests in UI mode
-npm test:ui
+# Build for production
+npm run build
 ```
 
 ---
 
-## 📖 API Documentation (SDK)
-
-### **Event System**
-```typescript
-import { on, emit } from './services/event-bus';
-
-on('system:ready', () => {
-    console.log("Kernel is active.");
-});
-
-emit('ui:toast', { message: "System initialized." });
-```
+## 📖 API Documentation (SDK Example)
 
 ### **File Operations**
 ```typescript
-import { vfs } from './core/fs';
+import sdk from './usr/lib/sdk';
 
-// Writing to VFS
-await vfs.writeFile('/home/user/notes.txt', 'Welcome to WEB.OS');
+// Writing to Persistent VFS
+sdk.fs.write('/home/notes.txt', 'Hello NA.os!');
 
-// Reading from VFS
-const content = await vfs.readFile('/home/user/notes.txt');
+// Checking existence
+if (sdk.fs.exists('/home/notes.txt')) {
+    const data = sdk.fs.read('/home/notes.txt');
+    console.log(data);
+}
+```
+
+### **System Notification**
+```typescript
+import sdk from './usr/lib/sdk';
+
+sdk.ui.notify('System Update', 'All kernel modules are nominal.');
 ```
 
 ---
 
-## 📊 System Specs
+## 📜 License & Attribution
 
-| Category | Capability |
-| :--- | :--- |
-| **Concurrency** | Max 32 Processes |
-| **Memory Quota** | 50MB per Application |
-| **File Limit** | 10MB per Entry |
-| **Network** | WebSocket over Socket.io |
-| **Security** | Sandboxed Execution Environment |
+Created and Maintained by **4yangXYAO**.
 
----
-
-## 📜 License
-
-Distributed under the **MIT License**. See `LICENSE` for more information.
+Distributed under the **MIT License**. Check the system 'About' for firmware details.
 
 ---
 
 <p align="center">
-  <i>Built with MIE for the future of web-based environments.</i>
+  <i>"Efficiency is an art form. NA.os is the canvas."</i>
 </p>
