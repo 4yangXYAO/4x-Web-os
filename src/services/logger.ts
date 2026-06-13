@@ -1,5 +1,5 @@
 /**
- * WEB.OS Logger Service
+ * NA.os Logger Service
  * 
  * Centralized logging system for all modules.
  * Stores logs in memory and IndexedDB for persistence.
@@ -35,7 +35,7 @@ export async function initializeLogger(): Promise<void> {
     }
 
     // Open or create database
-    const request = window.indexedDB.open('web-os-logs', 1);
+    const request = window.indexedDB.open('NA.os-logs', 1);
 
     request.onerror = () => {
       console.error('[Logger] Failed to open IndexedDB');
@@ -142,7 +142,7 @@ async function storeInDatabase(entry: LogEntry): Promise<void> {
   if (!dbReady) return;
 
   try {
-    const request = window.indexedDB.open('web-os-logs', 1);
+    const request = window.indexedDB.open('NA.os-logs', 1);
     request.onsuccess = () => {
       const db = request.result;
       const transaction = db.transaction(['logs'], 'readwrite');

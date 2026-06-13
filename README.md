@@ -1,4 +1,4 @@
-# 🌌 WEB.OS — Cyberpunk Browser OS
+# 🌌 NA.os — Cyberpunk Browser OS
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Development-orange?style=for-the-badge&logo=rocket" alt="Status" />
@@ -9,7 +9,7 @@
 
 ---
 
-**WEB.OS** is a high-performance, lightweight operating system kernel and desktop environment designed to run natively within any modern web browser. It features a genuine **Microkernel Architecture**, a **Virtual File System (VFS)**, and a robust **Process Manager**.
+**NA.os** is a high-performance, lightweight operating system kernel and desktop environment designed to run natively within any modern web browser. It features a genuine **Microkernel Architecture**, a **Virtual File System (VFS)**, and a robust **Process Manager**.
 
 ---
 

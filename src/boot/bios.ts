@@ -1,5 +1,5 @@
 /**
- * WEB.OS BIOS
+ * NA.os BIOS
  * 
  * Hardware detection, browser capability checks, and environment initialization.
  * Runs before bootstrap to ensure system can operate.

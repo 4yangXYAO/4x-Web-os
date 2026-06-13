@@ -1,5 +1,5 @@
 /**
- * WEB.OS Bootstrap
+ * NA.os Bootstrap
  * 
  * Orchestrates the system startup sequence.
  * Links BIOS, Kernel, Services, and Shell.
@@ -35,7 +35,7 @@ export interface BootOptions {
  * @returns Promise that resolves when system is ready
  */
 export async function bootstrap(options: BootOptions = {}): Promise<void> {
-  console.log('Initializing WEB.OS bootstrap sequence...');
+  console.log('Initializing NA.os bootstrap sequence...');
 
   try {
     // 1. BIOS Level

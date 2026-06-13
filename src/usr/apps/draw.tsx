@@ -1,5 +1,5 @@
 /**
- * WEB.OS Drawing Tool
+ * NA.os Drawing Tool
  * 
  * Simple canvas-based paint program.
  */

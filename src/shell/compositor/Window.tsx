@@ -1,5 +1,5 @@
 /**
- * WEB.OS Window Component
+ * NA.os Window Component
  *
  * Base component for all application windows.
  * Handles dragging, resizing, focus, and window controls.

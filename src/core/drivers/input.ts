@@ -1,5 +1,5 @@
 /**
- * WEB.OS Input Driver
+ * NA.os Input Driver
  * 
  * Abstraction layer for handling user input from various devices.
  * Normalizes mouse, keyboard, and touch events for the system.

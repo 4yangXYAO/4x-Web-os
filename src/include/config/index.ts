@@ -1,5 +1,5 @@
 /**
- * WEB.OS System Configuration
+ * NA.os System Configuration
  * 
  * Global configuration constants and feature flags.
  * All settings must be explicitly defined here—no magic numbers.
@@ -139,7 +139,7 @@ export const FS = {
 
 export const DATABASE = {
   /** Database file name (stored in IndexedDB or local) */
-  DB_NAME: 'web-os',
+  DB_NAME: 'NA.os',
 
   /** Current schema version */
   SCHEMA_VERSION: 1,

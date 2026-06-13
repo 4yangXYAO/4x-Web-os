@@ -1,5 +1,5 @@
 /**
- * WEB.OS Storage Driver
+ * NA.os Storage Driver
  * 
  * Manages low-level persistence using browser storage APIs.
  * Supports localStorage for configuration and IndexedDB for large data.

@@ -1,5 +1,5 @@
 /**
- * WEB.OS Audio Driver
+ * NA.os Audio Driver
  * 
  * Handles system sounds, notifications, and application audio.
  * Uses the Web Audio API for low-latency playback.

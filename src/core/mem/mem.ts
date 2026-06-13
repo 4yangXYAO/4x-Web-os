@@ -1,5 +1,5 @@
 /**
- * WEB.OS Memory Manager
+ * NA.os Memory Manager
  * 
  * Manages system-wide memory allocation and caching.
  * Enforces memory quotas and provides a centralized cache.

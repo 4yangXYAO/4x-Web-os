@@ -1,5 +1,5 @@
 /**
- * WEB.OS Compositor Store
+ * NA.os Compositor Store
  *
  * Central state for window management using SolidJS signals.
  * Provides reactive access to all running application windows.

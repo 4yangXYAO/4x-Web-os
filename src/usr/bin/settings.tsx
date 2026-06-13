@@ -1,5 +1,5 @@
 /**
- * WEB.OS Settings
+ * NA.os Settings
  * 
  * System configuration utility.
  */
@@ -66,7 +66,7 @@ export const SettingsApp = () => {
         {activeTab() === 'about' && (
           <div class="flex flex-col items-center justify-center h-full text-center max-w-sm mx-auto">
             <div class="w-20 h-20 bg-white mb-6 flex items-center justify-center font-bold text-black text-4xl italic">OS</div>
-            <h1 class="text-2xl font-bold uppercase tracking-tighter mb-1">WEB.OS</h1>
+            <h1 class="text-2xl font-bold uppercase tracking-tighter mb-1">NA.os</h1>
             <p class="text-[10px] font-bold text-white/40 uppercase mb-8">Version 0.1.0-ALPHA "Foundation"</p>
             <p class="text-xs leading-relaxed opacity-60">
               A full-featured, lightweight operating system that runs entirely in your browser. 

@@ -51,7 +51,7 @@ const App = () => {
         fallback={
           <div class="flex h-full w-full flex-col items-center justify-center font-mono p-10">
             <div class="mb-8 text-2xl animate-pulse tracking-[0.2em] font-bold">
-              BOOTING WEB.OS
+              BOOTING NA.os
             </div>
 
             <div class="w-64 h-1 bg-white/10 mb-8 relative overflow-hidden">

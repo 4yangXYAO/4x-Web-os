@@ -1,5 +1,5 @@
 /**
- * WEB.OS Virtual File System (VFS)
+ * NA.os Virtual File System (VFS)
  * 
  * In-memory file system with SQLite persistence.
  * Provides POSIX-like file operations (read, write, mkdir, rm, etc.).

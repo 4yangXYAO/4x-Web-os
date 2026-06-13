@@ -1,5 +1,5 @@
 /**
- * WEB.OS Shell
+ * NA.os Shell
  *
  * Main shell container that orchestrates the GUI components.
  * Connects Desktop, Taskbar, and Compositor.
@@ -46,7 +46,7 @@ export const Shell = () => {
 
         {/* Status Overlay Layer */}
         <div class="absolute top-4 right-4 z-50 text-[10px] text-white/30 text-right pointer-events-none font-bold uppercase tracking-widest">
-          WEB.OS SYSTEM v0.1.0-ALPHA
+          NA.os SYSTEM v0.1.0-ALPHA
           <br />
           HYBRID KERNEL INSTALLED
           <br />

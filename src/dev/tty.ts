@@ -1,5 +1,5 @@
 /**
- * WEB.OS TTY Driver
+ * NA.os TTY Driver
  * 
  * Virtual Teletype (TTY) interface for the terminal.
  * Connects the Terminal app with system streams.

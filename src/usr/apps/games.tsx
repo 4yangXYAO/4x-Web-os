@@ -1,5 +1,5 @@
 /**
- * WEB.OS Game Center
+ * NA.os Game Center
  *
  * Hub for mini games. Includes "Cyber Runner" (Dino clone variant).
  */

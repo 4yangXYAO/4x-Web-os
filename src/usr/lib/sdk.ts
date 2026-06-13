@@ -1,5 +1,5 @@
 /**
- * WEB.OS SDK
+ * NA.os SDK
  * 
  * Public API for User Applications.
  * Provides a secure bridge between apps and the kernel.

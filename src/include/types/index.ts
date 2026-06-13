@@ -1,5 +1,5 @@
 /**
- * WEB.OS Global Type Definitions
+ * NA.os Global Type Definitions
  * 
  * All core types, interfaces, and contracts defined here.
  * Single source of truth for system-wide type safety.

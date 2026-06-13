@@ -1,5 +1,5 @@
 /**
- * WEB.OS Desktop
+ * NA.os Desktop
  *
  * Main user interaction area.
  * Contains app icons, widgets, and background effects.

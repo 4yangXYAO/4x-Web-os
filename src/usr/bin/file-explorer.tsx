@@ -1,5 +1,5 @@
 /**
- * WEB.OS File Explorer
+ * NA.os File Explorer
  * 
  * GUI application for browsing and managing the VFS.
  */

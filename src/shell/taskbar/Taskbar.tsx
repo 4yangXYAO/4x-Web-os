@@ -1,5 +1,5 @@
 /**
- * WEB.OS Taskbar
+ * NA.os Taskbar
  * 
  * System navigation and status indicator.
  * Includes Start menu trigger and running apps.

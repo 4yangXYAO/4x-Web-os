@@ -1,5 +1,5 @@
 /**
- * WEB.OS Application Registry
+ * NA.os Application Registry
  * 
  * Maps appId to implementation components.
  * Central place for application definitions.

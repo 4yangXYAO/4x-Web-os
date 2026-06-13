@@ -1,5 +1,5 @@
 /**
- * WEB.OS Process Manager
+ * NA.os Process Manager
  * 
  * Manages application lifecycle and process scheduling.
  * Handles process creation, termination, and resource accounting.

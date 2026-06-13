@@ -1,5 +1,5 @@
 /**
- * WEB.OS Compositor
+ * NA.os Compositor
  *
  * Manages window stack, focus, and rendering.
  * Coordinates between apps and the screen.

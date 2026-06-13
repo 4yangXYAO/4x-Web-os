@@ -1,5 +1,5 @@
 /**
- * WEB.OS Terminal
+ * NA.os Terminal
  * 
  * Core system terminal for command-line interaction.
  * Interfaces with the VFS and Process Manager.
@@ -15,7 +15,7 @@ interface TerminalLine {
 
 export const TerminalApp = () => {
   const [history, setHistory] = createSignal<TerminalLine[]>([
-    { type: 'info', content: 'WEB.OS SYSTEM TERMINAL v0.1.0' },
+    { type: 'info', content: 'NA.os SYSTEM TERMINAL v0.1.0' },
     { type: 'info', content: 'Type "help" for a list of available commands.' },
   ]);
   const [currentInput, setCurrentInput] = createSignal('');
@@ -55,7 +55,7 @@ export const TerminalApp = () => {
       }
 
       case 'whoami':
-        addOutput('user@web-os');
+        addOutput('user@NA.os');
         break;
 
       case 'clear':

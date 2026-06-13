@@ -1,5 +1,5 @@
 /**
- * WEB.OS Networking Service
+ * NA.os Networking Service
  * 
  * Manages real-time communication via Socket.io.
  * Handles server connections, message routing, and peer-to-peer data.

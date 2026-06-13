@@ -1,5 +1,5 @@
 /**
- * WEB.OS Word Editor
+ * NA.os Word Editor
  * 
  * Simple text editor. Note: Save functionality disabled by system policy.
  */

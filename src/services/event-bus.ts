@@ -1,5 +1,5 @@
 /**
- * WEB.OS Event Bus Service
+ * NA.os Event Bus Service
  * 
  * Pub/Sub system for inter-component communication.
  * Decouples components by using events instead of direct method calls.
