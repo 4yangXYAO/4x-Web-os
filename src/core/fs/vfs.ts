@@ -195,6 +195,7 @@ export function writeFileSync(path: string, content: string | Uint8Array): FSOpe
     existingNode.metadata.sizeBytes = typeof content === 'string' ? content.length : content.byteLength;
 
     emit('fs:file-updated', { path: normalized });
+    persistToStorage();
     return { success: true, path };
   }
 
@@ -220,6 +221,7 @@ export function writeFileSync(path: string, content: string | Uint8Array): FSOpe
   parentNode.children.push(fileNode);
 
   emit('fs:file-created', { path: normalized });
+  persistToStorage();
   return { success: true, path };
 }
 
@@ -326,6 +328,7 @@ export function mkdirSync(path: string, recursive = false): FSOperationResult {
   parentNode.children.push(dirNode);
 
   emit('fs:dir-created', { path: normalized });
+  persistToStorage();
   return { success: true, path };
 }
 
@@ -403,6 +406,7 @@ export function unlinkSync(path: string): FSOperationResult {
   nodeStore.delete(normalized);
 
   emit('fs:file-deleted', { path: normalized });
+  persistToStorage();
   return { success: true, path };
 }
 
@@ -446,10 +450,49 @@ export function statSync(path: string): VFSNode | FSOperationResult {
 // ============================================================================
 
 /**
+ * Persist the current VFS state to localStorage.
+ */
+function persistToStorage(): void {
+  try {
+    const data = Array.from(nodeStore.entries());
+    localStorage.setItem('naos:vfs', JSON.stringify(data));
+  } catch (err) {
+    warn('vfs', 'Failed to persist VFS to storage');
+  }
+}
+
+/**
+ * Load VFS state from localStorage.
+ */
+function loadFromStorage(): boolean {
+  try {
+    const data = localStorage.getItem('naos:vfs');
+    if (!data) return false;
+
+    const parsed = JSON.parse(data);
+    nodeStore.clear();
+    
+    // Reconstruct nodes and ensure dates are Date objects
+    for (const [path, node] of parsed) {
+      node.metadata.createdAt = new Date(node.metadata.createdAt);
+      node.metadata.modifiedAt = new Date(node.metadata.modifiedAt);
+      nodeStore.set(path, node);
+    }
+    return true;
+  } catch (err) {
+    warn('vfs', 'Failed to load VFS from storage');
+    return false;
+  }
+}
+
+/**
  * Initialize VFS with root directory structure.
  */
 export function initializeVFS(): void {
-  initializeRootFS();
+  if (!loadFromStorage()) {
+    initializeRootFS();
+    persistToStorage();
+  }
 }
 
 /**

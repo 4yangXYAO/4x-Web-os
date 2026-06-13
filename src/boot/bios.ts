@@ -65,7 +65,7 @@ function detectPlatform(): HardwareInfo['platform'] {
  */
 function checkLocalStorage(): boolean {
   try {
-    const testKey = '__WEBOS_TEST__';
+    const testKey = '__NAOS_TEST__';
     localStorage.setItem(testKey, 'test');
     const result = localStorage.getItem(testKey) === 'test';
     localStorage.removeItem(testKey);
@@ -167,12 +167,12 @@ function logWarning(message: string): void {
 
   // Store warning in localStorage for diagnostics
   try {
-    const warnings = JSON.parse(localStorage.getItem('__WEBOS_WARNINGS__') || '[]');
+    const warnings = JSON.parse(localStorage.getItem('__NAOS_WARNINGS__') || '[]');
     warnings.push({
       timestamp: new Date().toISOString(),
       message
     });
-    localStorage.setItem('__WEBOS_WARNINGS__', JSON.stringify(warnings.slice(-100))); // Keep last 100
+    localStorage.setItem('__NAOS_WARNINGS__', JSON.stringify(warnings.slice(-100))); // Keep last 100
   } catch {
     // Silently fail if localStorage write fails
   }

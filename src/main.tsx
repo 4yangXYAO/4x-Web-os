@@ -2,13 +2,12 @@ import { render } from "solid-js/web";
 import { bootstrap } from "./boot/bootstrap";
 import { createSignal, onMount, Show, For } from "solid-js";
 import { Shell } from "./shell/Shell";
-import TerminalApp from "./usr/bin/terminal";
 
 // Import CSS
 import "./index.css";
 
 /**
- * Root Application Component
+ * Root Application Component with Boot Sequence
  */
 const App = () => {
   const [isBooted, setIsBooted] = createSignal(false);
@@ -16,25 +15,25 @@ const App = () => {
   const [bootLogs, setBootLogs] = createSignal<string[]>([]);
 
   const addLog = (msg: string) => {
-    setBootLogs((prev) => [...prev.slice(-4), msg]);
+    setBootLogs((prev) => [...prev.slice(-6), msg]);
   };
 
   onMount(async () => {
     try {
       addLog("Detecting hardware...");
-      await new Promise((r) => setTimeout(r, 200));
+      await new Promise((r) => setTimeout(r, 400));
 
-      addLog("Initializing services...");
-      await new Promise((r) => setTimeout(r, 150));
+      addLog("Initializing hyper-kernel v1.0...");
+      await new Promise((r) => setTimeout(r, 300));
 
-      addLog("Loading kernel...");
-      await new Promise((r) => setTimeout(r, 250));
+      addLog("Loading persistent storage...");
+      await new Promise((r) => setTimeout(r, 500));
 
-      addLog("Mounting VFS...");
+      addLog("Orchestrating GUI services...");
       await bootstrap({ debugMode: import.meta.env.DEV });
 
       addLog("System ready.");
-      await new Promise((r) => setTimeout(r, 100));
+      await new Promise((r) => setTimeout(r, 200));
 
       setIsBooted(true);
     } catch (err) {
@@ -49,46 +48,46 @@ const App = () => {
       <Show
         when={isBooted()}
         fallback={
-          <div class="flex h-full w-full flex-col items-center justify-center font-mono p-10">
-            <div class="mb-8 text-2xl animate-pulse tracking-[0.2em] font-bold">
-              BOOTING NA.os
+          <div class="flex h-full w-full flex-col items-center justify-center font-mono p-10 bg-[#050505]">
+            <div class="mb-2 text-4xl font-black italic tracking-tighter text-white">
+              NA.os
+            </div>
+            <div class="mb-12 text-[10px] font-bold tracking-[0.6em] text-white/30 uppercase">
+              By 4yangXYAO
             </div>
 
-            <div class="w-64 h-1 bg-white/10 mb-8 relative overflow-hidden">
-              <div
-                class="absolute inset-y-0 left-0 bg-white animate-[loading_2s_infinite]"
-                style="width: 40%"
-              />
+            <div class="w-64 h-[1px] bg-white/5 mb-8 relative overflow-hidden">
+               <div class="absolute inset-y-0 left-0 bg-[#00ff00] shadow-[0_0_10px_#00ff00] animate-[loading_1.5s_infinite]" style="width: 30%" />
             </div>
 
-            <div class="w-full max-w-sm">
+            <div class="w-full max-w-sm flex flex-col items-center">
               <For each={bootLogs()}>
                 {(log) => (
-                  <div class="text-[10px] text-white/40 uppercase mb-1 flex gap-2">
-                    <span class="text-green-500">[OK]</span>
-                    <span>{log}</span>
+                  <div class="text-[9px] text-white/40 uppercase mb-1 flex items-center gap-3 w-full">
+                    <span class="text-[#00ff00] font-black">✓</span>
+                    <span class="tracking-widest">{log}</span>
                   </div>
                 )}
               </For>
             </div>
 
             <Show when={bootError()}>
-              <div class="text-red-500 mt-8 max-w-md text-center border border-red-500 p-4">
-                <div class="font-bold mb-2 uppercase tracking-widest text-xs">
-                  Kernel Panic
+              <div class="text-red-500 mt-12 max-w-md w-full border border-red-500/50 p-6 bg-red-500/5">
+                <div class="font-black mb-2 uppercase tracking-[0.2em] text-xs">
+                  KERNEL_PANIC::BOOT_FAILED
                 </div>
-                <div class="text-[10px] opacity-70">{bootError()}</div>
+                <div class="text-[9px] opacity-70 font-mono leading-relaxed">{bootError()}</div>
+                <button onClick={() => window.location.reload()} class="mt-4 px-4 py-1 border border-red-500 text-[9px] font-bold hover:bg-red-500 hover:text-white transition-all">TRY_REBOOT</button>
               </div>
             </Show>
+
+            <div class="absolute bottom-8 text-[9px] font-bold text-white/10 uppercase tracking-[0.3em]">
+                System Architecture v1.0.0 Stable
+            </div>
           </div>
         }
       >
-        {/* If launched with ?app=terminal, show the Terminal directly for development/testing */}
-        {new URLSearchParams(location.search).get("app") === "terminal" ? (
-          <TerminalApp />
-        ) : (
-          <Shell />
-        )}
+        <Shell />
       </Show>
     </div>
   );
