@@ -18,15 +18,17 @@ interface WindowProps {
 }
 
 export const Window = (props: WindowProps) => {
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
   const windowStyle = createMemo(() => {
-    if (props.state === "maximized") {
+    if (isMobile || props.state === "maximized") {
       return {
         width: "100%",
         height: "100%",
         left: "0px",
         top: "0px",
         "z-index": props.zIndex,
-        display: "flex",
+        display: props.state === "minimized" ? "none" : "flex",
         "border-width": "0px",
       };
     }
@@ -50,8 +52,6 @@ export const Window = (props: WindowProps) => {
   let originY = props.bounds.y;
   let capturedTarget: Element | null = null;
   let capturedPointerId = 0;
-
-  // track apakah pointer sempat bergerak — untuk bedain drag vs click
   let hasMoved = false;
 
   function onPointerMove(e: PointerEvent) {
@@ -59,7 +59,6 @@ export const Window = (props: WindowProps) => {
     const dx = e.clientX - dragStartX;
     const dy = e.clientY - dragStartY;
 
-    // tandai sudah bergerak kalau delta cukup besar
     if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
 
     if (rootEl) {
@@ -81,7 +80,6 @@ export const Window = (props: WindowProps) => {
       const finalY = Math.round(originY + dy);
       rootEl.style.transform = "";
 
-      // hanya commit kalau memang ada gerakan
       if (hasMoved) {
         updateWindowBounds(props.pid, { x: finalX, y: finalY });
       }
@@ -90,23 +88,24 @@ export const Window = (props: WindowProps) => {
     try {
       if (capturedTarget && capturedPointerId)
         (capturedTarget as any).releasePointerCapture(capturedPointerId);
-    } catch { }
+    } catch {}
 
     capturedTarget = null;
     capturedPointerId = 0;
   }
 
   function startDrag(e: PointerEvent) {
+    if (isMobile) return;
     if ((e as any).button !== undefined && (e as any).button !== 0) return;
     try {
       const t = e.target as Element;
       if (t && typeof t.closest === "function" && t.closest("[data-no-drag]"))
         return;
-    } catch { }
+    } catch {}
 
     e.preventDefault();
     e.stopPropagation();
-    hasMoved = false; // reset setiap drag baru
+    hasMoved = false;
 
     setIsDragging(true);
     dragStartX = e.clientX;
@@ -131,10 +130,9 @@ export const Window = (props: WindowProps) => {
         capturedTarget = target as Element;
         capturedPointerId = e.pointerId;
       }
-    } catch { }
+    } catch {}
   }
 
-  // focus hanya fire kalau bukan dari area controls
   function handleRootPointerDown(e: PointerEvent) {
     const t = e.target as Element;
     if (t?.closest("[data-no-drag]")) return;
@@ -155,7 +153,7 @@ export const Window = (props: WindowProps) => {
     >
       {/* Title Bar */}
       <div
-        class="flex items-center justify-between h-8 bg-white text-black px-2 cursor-move select-none shrink-0"
+        class={`flex items-center justify-between h-8 bg-white text-black px-2 select-none shrink-0 ${isMobile ? "cursor-default" : "cursor-move"}`}
         onPointerDown={(e) => startDrag(e as PointerEvent)}
       >
         <div class="flex items-center gap-2 overflow-hidden">
@@ -206,7 +204,9 @@ export const Window = (props: WindowProps) => {
       </div>
 
       {/* Content Area */}
-      <div class="flex-1 overflow-auto relative">{props.children}</div>
+      <div class="flex-1 overflow-auto relative pointer-events-auto">
+        {props.children}
+      </div>
 
       {/* Resize Handle */}
       <div class="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize" />

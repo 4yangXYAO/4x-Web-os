@@ -51,7 +51,7 @@ export const closeApp = (pid: string): void => {
       "before:",
       apps().map((a) => a.pid),
     );
-  } catch {}
+  } catch { }
   setApps((prev) => prev.filter((a) => a.pid !== pid));
   if (activePid() === pid) setActivePid(null);
   emit("shell:app-closed", { pid });
@@ -60,22 +60,14 @@ export const closeApp = (pid: string): void => {
       "[compositor-store] closeApp() completed, after:",
       apps().map((a) => a.pid),
     );
-  } catch {}
+  } catch { }
 };
 
 export const focusApp = (pid: string): void => {
-  if (activePid() === pid) return; // Already active/focused
-
   setActivePid(pid);
-  setApps((prev) => {
-    const idx = prev.findIndex((a) => a.pid === pid);
-    if (idx === -1 || idx === prev.length - 1) return prev;
-    
-    const newApps = [...prev];
-    const [app] = newApps.splice(idx, 1);
-    newApps.push(app); // Keep same object reference
-    return newApps;
-  });
+  setApps((prev) =>
+    prev.map((a) => (a.pid === pid ? { ...a, focusedAt: new Date() } : a)),
+  );
   emit("shell:app-focused", { pid });
 };
 
