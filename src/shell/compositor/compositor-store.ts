@@ -64,10 +64,18 @@ export const closeApp = (pid: string): void => {
 };
 
 export const focusApp = (pid: string): void => {
+  if (activePid() === pid) return; // Already active/focused
+
   setActivePid(pid);
-  setApps((prev) =>
-    prev.map((a) => (a.pid === pid ? { ...a, focusedAt: new Date() } : a)),
-  );
+  setApps((prev) => {
+    const idx = prev.findIndex((a) => a.pid === pid);
+    if (idx === -1 || idx === prev.length - 1) return prev;
+    
+    const newApps = [...prev];
+    const [app] = newApps.splice(idx, 1);
+    newApps.push(app); // Keep same object reference
+    return newApps;
+  });
   emit("shell:app-focused", { pid });
 };
 

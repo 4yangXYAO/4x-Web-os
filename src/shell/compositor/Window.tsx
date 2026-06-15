@@ -1,10 +1,3 @@
-/**
- * NA.os Window Component
- *
- * Base component for all application windows.
- * Handles dragging, resizing, focus, and window controls.
- */
-
 import { createMemo, JSX, Show, createSignal, onCleanup } from "solid-js";
 import { X, Minus, Square } from "lucide-solid";
 import type { AppWindowState, WindowBounds } from "@include/types";
@@ -48,10 +41,8 @@ export const Window = (props: WindowProps) => {
     };
   });
 
-  // Element ref
   let rootEl: HTMLDivElement | undefined;
 
-  // Drag state
   const [isDragging, setIsDragging] = createSignal(false);
   let dragStartX = 0;
   let dragStartY = 0;
@@ -60,12 +51,17 @@ export const Window = (props: WindowProps) => {
   let capturedTarget: Element | null = null;
   let capturedPointerId = 0;
 
+  // track apakah pointer sempat bergerak — untuk bedain drag vs click
+  let hasMoved = false;
+
   function onPointerMove(e: PointerEvent) {
     if (!isDragging()) return;
     const dx = e.clientX - dragStartX;
     const dy = e.clientY - dragStartY;
 
-    // Immediate visual feedback using transform
+    // tandai sudah bergerak kalau delta cukup besar
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
+
     if (rootEl) {
       rootEl.style.transform = `translate(${dx}px, ${dy}px)`;
     }
@@ -76,7 +72,6 @@ export const Window = (props: WindowProps) => {
     document.removeEventListener("pointermove", onPointerMove);
     document.removeEventListener("pointerup", endDrag);
 
-    // Commit final position
     if (rootEl) {
       const style = rootEl.style.transform || "";
       const m = /translate\(([-0-9.]+)px,\s*([-0-9.]+)px\)/.exec(style);
@@ -85,29 +80,33 @@ export const Window = (props: WindowProps) => {
       const finalX = Math.round(originX + dx);
       const finalY = Math.round(originY + dy);
       rootEl.style.transform = "";
-      updateWindowBounds(props.pid, { x: finalX, y: finalY });
+
+      // hanya commit kalau memang ada gerakan
+      if (hasMoved) {
+        updateWindowBounds(props.pid, { x: finalX, y: finalY });
+      }
     }
 
     try {
       if (capturedTarget && capturedPointerId)
         (capturedTarget as any).releasePointerCapture(capturedPointerId);
-    } catch {}
+    } catch { }
 
     capturedTarget = null;
     capturedPointerId = 0;
   }
 
   function startDrag(e: PointerEvent) {
-    // only primary button
     if ((e as any).button !== undefined && (e as any).button !== 0) return;
-    // don't start a drag if the pointer target (or its ancestor) is marked as non-draggable
     try {
       const t = e.target as Element;
       if (t && typeof t.closest === "function" && t.closest("[data-no-drag]"))
         return;
-    } catch {}
+    } catch { }
 
     e.preventDefault();
+    e.stopPropagation();
+    hasMoved = false; // reset setiap drag baru
 
     setIsDragging(true);
     dragStartX = e.clientX;
@@ -115,17 +114,14 @@ export const Window = (props: WindowProps) => {
     originX = props.bounds.x;
     originY = props.bounds.y;
 
-    // Listen on document to survive leaving the title bar
     document.addEventListener("pointermove", onPointerMove);
     document.addEventListener("pointerup", endDrag);
 
-    // Prepare element for immediate transforms
     if (rootEl) {
       rootEl.style.transition = "none";
       rootEl.style.transform = "";
     }
 
-    // Try to capture pointer
     try {
       const target = e.target as Element & {
         setPointerCapture?: (id: number) => void;
@@ -135,7 +131,14 @@ export const Window = (props: WindowProps) => {
         capturedTarget = target as Element;
         capturedPointerId = e.pointerId;
       }
-    } catch {}
+    } catch { }
+  }
+
+  // focus hanya fire kalau bukan dari area controls
+  function handleRootPointerDown(e: PointerEvent) {
+    const t = e.target as Element;
+    if (t?.closest("[data-no-drag]")) return;
+    props.onFocus();
   }
 
   onCleanup(() => {
@@ -148,11 +151,11 @@ export const Window = (props: WindowProps) => {
       ref={(el) => (rootEl = el as HTMLDivElement)}
       class="absolute flex flex-col bg-black border border-white overflow-hidden shadow-2xl pointer-events-auto"
       style={windowStyle()}
-      onMouseDown={() => props.onFocus()}
+      onPointerDown={handleRootPointerDown}
     >
       {/* Title Bar */}
       <div
-        class="flex items-center justify-between h-8 bg-white text-black px-2 cursor-move select-none shrink-0 group"
+        class="flex items-center justify-between h-8 bg-white text-black px-2 cursor-move select-none shrink-0"
         onPointerDown={(e) => startDrag(e as PointerEvent)}
       >
         <div class="flex items-center gap-2 overflow-hidden">
@@ -167,29 +170,31 @@ export const Window = (props: WindowProps) => {
         <div
           class="flex items-center gap-1"
           data-no-drag
-          onPointerDown={(e) => {
-            e.stopPropagation();
-          }}
+          onPointerDown={(e) => e.stopPropagation()}
         >
           <button
-            onClick={() => props.onMinimize()}
+            onClick={(e) => {
+              e.stopPropagation();
+              props.onMinimize();
+            }}
             class="p-1 hover:bg-black/10 transition-colors"
             data-no-drag
           >
             <Minus size={14} />
           </button>
           <button
-            onClick={() => props.onMaximize()}
+            onClick={(e) => {
+              e.stopPropagation();
+              props.onMaximize();
+            }}
             class="p-1 hover:bg-black/10 transition-colors"
             data-no-drag
           >
             <Square size={14} />
           </button>
           <button
-            onClick={() => {
-              try {
-                console.debug("[Window] close clicked", props.pid);
-              } catch {}
+            onClick={(e) => {
+              e.stopPropagation();
               props.onClose();
             }}
             class="p-1 hover:bg-red-500 hover:text-white transition-colors"
