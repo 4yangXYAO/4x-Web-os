@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
 
   socket.on('message', (msg) => {
     console.log(`[Server] [${msg.source}] -> [${msg.destination}]: ${msg.type}`);
-    
+
     // Broadcast to others or route to specific destination
     if (msg.destination === 'broadcast') {
       socket.broadcast.emit('message', msg);
@@ -64,9 +64,9 @@ io.on('connection', (socket) => {
 // ============================================================================
 
 fastify.get('/health', async () => {
-  return { 
-    status: 'ok', 
-    uptime: process.uptime(), 
+  return {
+    status: 'ok',
+    uptime: process.uptime(),
     connections: activeConnections.size,
     mode: 'volatile'
   };
