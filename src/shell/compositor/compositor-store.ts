@@ -64,10 +64,16 @@ export const closeApp = (pid: string): void => {
 };
 
 export const focusApp = (pid: string): void => {
+  if (activePid() === pid) return;
   setActivePid(pid);
-  setApps((prev) =>
-    prev.map((a) => (a.pid === pid ? { ...a, focusedAt: new Date() } : a)),
-  );
+  setApps((prev) => {
+    const idx = prev.findIndex((a) => a.pid === pid);
+    if (idx === -1 || idx === prev.length - 1) return prev;
+    const newApps = [...prev];
+    const [app] = newApps.splice(idx, 1);
+    newApps.push(app);
+    return newApps;
+  });
   emit("shell:app-focused", { pid });
 };
 
@@ -75,20 +81,22 @@ export const updateWindowState = (
   pid: string,
   windowState: AppWindowState,
 ): void => {
-  setApps((prev) =>
-    prev.map((a) => (a.pid === pid ? { ...a, windowState } : a)),
-  );
+  setApps((prev) => {
+    const app = prev.find((a) => a.pid === pid);
+    if (app) app.windowState = windowState;
+    return [...prev];
+  });
 };
 
 export const updateWindowBounds = (
   pid: string,
   bounds: Partial<WindowBounds>,
 ): void => {
-  setApps((prev) =>
-    prev.map((a) =>
-      a.pid === pid ? { ...a, bounds: { ...a.bounds, ...bounds } } : a,
-    ),
-  );
+  setApps((prev) => {
+    const app = prev.find((a) => a.pid === pid);
+    if (app) app.bounds = { ...app.bounds, ...bounds };
+    return [...prev];
+  });
 };
 
 // ============================================================================

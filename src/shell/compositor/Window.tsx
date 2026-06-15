@@ -88,7 +88,7 @@ export const Window = (props: WindowProps) => {
     try {
       if (capturedTarget && capturedPointerId)
         (capturedTarget as any).releasePointerCapture(capturedPointerId);
-    } catch {}
+    } catch { }
 
     capturedTarget = null;
     capturedPointerId = 0;
@@ -101,10 +101,9 @@ export const Window = (props: WindowProps) => {
       const t = e.target as Element;
       if (t && typeof t.closest === "function" && t.closest("[data-no-drag]"))
         return;
-    } catch {}
+    } catch { }
 
     e.preventDefault();
-    e.stopPropagation();
     hasMoved = false;
 
     setIsDragging(true);
@@ -130,12 +129,10 @@ export const Window = (props: WindowProps) => {
         capturedTarget = target as Element;
         capturedPointerId = e.pointerId;
       }
-    } catch {}
+    } catch { }
   }
 
-  function handleRootPointerDown(e: PointerEvent) {
-    const t = e.target as Element;
-    if (t?.closest("[data-no-drag]")) return;
+  function handleRootPointerDown() {
     props.onFocus();
   }
 
@@ -168,7 +165,6 @@ export const Window = (props: WindowProps) => {
         <div
           class="flex items-center gap-1"
           data-no-drag
-          onPointerDown={(e) => e.stopPropagation()}
         >
           <button
             onClick={(e) => {

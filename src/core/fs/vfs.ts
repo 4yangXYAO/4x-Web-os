@@ -489,10 +489,7 @@ function loadFromStorage(): boolean {
  * Initialize VFS with root directory structure.
  */
 export function initializeVFS(): void {
-  if (!loadFromStorage()) {
-    initializeRootFS();
-    persistToStorage();
-  }
+  initializeRootFS();
 }
 
 /**
