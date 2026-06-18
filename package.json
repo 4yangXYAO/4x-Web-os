@@ -17,7 +17,6 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\""
   },
   "dependencies": {
-    "@rollup/rollup-win32-x64-msvc": "^4.61.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "fastify": "^4.25.1",
